@@ -8,7 +8,7 @@
 
 Name:       %{php_base}-ioncube-loader
 Summary:    IonCube Loader provides PHP Modules to read IonCube Encoded Files
-Version:    5.0.13
+Version:    5.0.14
 Release:    1.ius%{?dist}
 License:    Redistributable, no modification permitted
 URL:        http://www.ioncube.com
@@ -69,6 +69,9 @@ EOF
 
 
 %changelog
+* Wed Aug 12 2015 Ben Harper <ben.harper@rackspace.com> - 5.0.14-1.ius
+- Latest upstream
+
 * Tue Jul 28 2015 Ben Harper <ben.harper@rackspace.com> - 5.0.13.-1.ius
 - Latest upstream
 
