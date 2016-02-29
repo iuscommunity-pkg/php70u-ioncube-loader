@@ -93,7 +93,7 @@ EOF
 * Wed Aug 12 2015 Ben Harper <ben.harper@rackspace.com> - 5.0.14-1.ius
 - Latest upstream
 
-* Tue Jul 28 2015 Ben Harper <ben.harper@rackspace.com> - 5.0.13.-1.ius
+* Tue Jul 28 2015 Ben Harper <ben.harper@rackspace.com> - 5.0.13-1.ius
 - Latest upstream
 
 * Wed Jul 15 2015 Carl George <carl.george@rackspace.com> - 5.0.12-1.ius
