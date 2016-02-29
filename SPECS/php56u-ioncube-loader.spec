@@ -130,7 +130,7 @@ EOF
 * Wed Nov 26 2014 Carl George <carl.george@rackspace.com> - 4.7.2-2.ius
 - Port from php54 to php55u
 
-* Mon Nov 25 2014 Carl George <carl.george@rackspace.com> - 4.7.2-1.ius
+* Tue Nov 25 2014 Carl George <carl.george@rackspace.com> - 4.7.2-1.ius
 - Latest upstream
 
 * Mon Nov 03 2014 Carl George <carl.george@rackspace.com> - 4.7.1-1.ius
@@ -212,7 +212,7 @@ EOF
 * Tue Jul 19 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> - 4.0.10-1.ius
 - Latest sources from upstream
 
-* Thu Jun 07 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> - 4.0.9-1.ius
+* Tue Jun 07 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> - 4.0.9-1.ius
 - Latest sources from upstream
 
 * Thu Apr 21 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> - 4.0.8-1.ius
@@ -248,7 +248,7 @@ EOF
 * Fri Jun 01 2007 BJ Dierkes <wdierkes@rackspace.com> 3.1.31-1.rs
 - Latest sources
 
-* Thu May 02 2007 BJ Dierkes <wdierkes@rackspace.com> 3.1.30-1.rs
+* Wed May 02 2007 BJ Dierkes <wdierkes@rackspace.com> 3.1.30-1.rs
 - Latest sources
 
 * Wed Apr 18 2007 BJ Dierkes <wdierkes@rackspace.com> 3.1.29-1.rs
