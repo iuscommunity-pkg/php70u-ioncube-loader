@@ -1,7 +1,5 @@
 %global php_base php56u
 %global php_basever 5.6
-%global _php5_mod_dir %{_libdir}/php/modules
-
 
 # [ionCube Loader] The Loader must appear as the first entry in the php.ini file
 %global ininame 01-ioncube-loader.ini
@@ -41,22 +39,22 @@ IonCube Loader provides PHP Modules to read IonCube Encoded Files
 
 
 %install
-%{__mkdir_p} %{buildroot}%{_php5_mod_dir} \
+%{__mkdir_p} %{buildroot}%{php_extdir} \
              %{buildroot}/%{_sysconfdir}/php.d
 
 # Install the shared objects
-install -m 755 ioncube_loader_lin_%{php_basever}.so %{buildroot}%{_php5_mod_dir}
-install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{_php5_mod_dir}
+install -m 755 ioncube_loader_lin_%{php_basever}.so %{buildroot}%{php_extdir}
+install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{php_extdir}
 
 %{__cat} >> %{buildroot}/%{_sysconfdir}/php.d/%{ininame} <<EOF
 
 ; Configured for PHP ${php_basever}
-zend_extension=%{_php5_mod_dir}/ioncube_loader_lin_%{php_basever}.so
+zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
 
 ; For threaded Apache/PHP Implementations comment out the above
 ; and un-comment the following:
 ;
-; zend_extension=%{_php5_mod_dir}/ioncube_loader_lin_%{php_basever}_ts.so
+; zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}_ts.so
 ;
 EOF
 
@@ -64,8 +62,8 @@ EOF
 %files
 %doc README.txt LICENSE.txt
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/php.d/%{ininame}
-%{_php5_mod_dir}/ioncube_loader_lin_%{php_basever}.so
-%{_php5_mod_dir}/ioncube_loader_lin_%{php_basever}_ts.so
+%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
+%{php_extdir}/ioncube_loader_lin_%{php_basever}_ts.so
 
 
 %changelog
