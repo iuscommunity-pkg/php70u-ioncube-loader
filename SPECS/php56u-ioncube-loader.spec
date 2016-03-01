@@ -25,7 +25,7 @@ Provides:   php-ioncube-loader = %{version}-%{release}
 IonCube Loader provides PHP Modules to read IonCube Encoded Files
 
 
-%prep 
+%prep
 %ifarch %{ix86}
 %setup -q -T -b 0 -n ioncube
 %endif
