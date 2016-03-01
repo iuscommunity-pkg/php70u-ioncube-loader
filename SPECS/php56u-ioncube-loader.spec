@@ -1,13 +1,14 @@
 %global php_base php56u
 %global php_basever 5.6
 
+%global with_zts 0%{?__ztsphp:1}
 # [ionCube Loader] The Loader must appear as the first entry in the php.ini file
 %global ininame 01-ioncube-loader.ini
 
 Name:       %{php_base}-ioncube-loader
 Summary:    IonCube Loader provides PHP Modules to read IonCube Encoded Files
 Version:    5.1.1
-Release:    1.ius%{?dist}
+Release:    2.ius%{?dist}
 License:    Redistributable, no modification permitted
 URL:        http://www.ioncube.com
 Group:      Development/Languages
@@ -41,32 +42,45 @@ IonCube Loader provides PHP Modules to read IonCube Encoded Files
 %install
 %{__mkdir_p} %{buildroot}%{php_extdir} \
              %{buildroot}%{php_inidir}
+%if %{with_zts}
+%{__mkdir_p} %{buildroot}%{php_ztsextdir} \
+             %{buildroot}%{php_ztsinidir}
+%endif
 
 # Install the shared objects
 install -m 755 ioncube_loader_lin_%{php_basever}.so %{buildroot}%{php_extdir}
-install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{php_extdir}
+%if %{with_zts}
+install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{php_ztsextdir}
+%endif
 
 %{__cat} >> %{buildroot}%{php_inidir}/%{ininame} <<EOF
-
 ; Configured for PHP ${php_basever}
 zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
-
-; For threaded Apache/PHP Implementations comment out the above
-; and un-comment the following:
-;
-; zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}_ts.so
-;
 EOF
+
+%if %{with_zts}
+cat >> %{buildroot}%{php_ztsinidir}/%{ininame} << EOF
+; Configured for threaded PHP ${php_basever}
+zend_extension=%{php_ztsextdir}/ioncube_loader_lin_%{php_basever}_ts.so
+EOF
+%endif
 
 
 %files
 %doc README.txt LICENSE.txt
 %config(noreplace) %attr(644,root,root) %{php_inidir}/%{ininame}
 %{php_extdir}/ioncube_loader_lin_%{php_basever}.so
-%{php_extdir}/ioncube_loader_lin_%{php_basever}_ts.so
+%if %{with_zts}
+%config(noreplace) %attr(644,root,root) %{php_ztsinidir}/%{ininame}
+%{php_ztsextdir}/ioncube_loader_lin_%{php_basever}_ts.so
+%endif
 
 
 %changelog
+* Tue Mar 01 2016 Carl George <carl.george@rackspace.com> - 5.1.1-2.ius
+- Move zts module to %%php_ztsextdir
+- Move zts configuration to %%php_ztsinidir
+
 * Mon Feb 08 2016 Ben Harper <ben.harper@rackspace.com> - 5.1.1-1.ius
 - Latest upstream
 
