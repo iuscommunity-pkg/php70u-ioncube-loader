@@ -40,13 +40,13 @@ IonCube Loader provides PHP Modules to read IonCube Encoded Files
 
 %install
 %{__mkdir_p} %{buildroot}%{php_extdir} \
-             %{buildroot}/%{php_inidir}
+             %{buildroot}%{php_inidir}
 
 # Install the shared objects
 install -m 755 ioncube_loader_lin_%{php_basever}.so %{buildroot}%{php_extdir}
 install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{php_extdir}
 
-%{__cat} >> %{buildroot}/%{php_inidir}/%{ininame} <<EOF
+%{__cat} >> %{buildroot}%{php_inidir}/%{ininame} <<EOF
 
 ; Configured for PHP ${php_basever}
 zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
