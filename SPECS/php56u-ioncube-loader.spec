@@ -18,6 +18,7 @@ Source0:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x
 Source1:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 BuildRequires: %{php_base}-devel
 Requires:   %{php_base}(api) = %{php_core_api}
+Requires:   %{php_base}(zend-abi) = %{php_zend_api}
 Conflicts:  php-ioncube-loader < %{version}
 Provides:   php-ioncube-loader = %{version}-%{release}
 
@@ -84,6 +85,7 @@ EOF
 - Move zts configuration to %%php_ztsinidir
 - Use %%license when possible
 - Add USER-GUIDE.txt to docs
+- Add requires for zend-abi
 
 * Mon Feb 08 2016 Ben Harper <ben.harper@rackspace.com> - 5.1.1-1.ius
 - Latest upstream
