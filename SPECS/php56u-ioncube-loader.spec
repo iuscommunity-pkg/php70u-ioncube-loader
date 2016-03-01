@@ -67,7 +67,9 @@ EOF
 
 
 %files
-%doc README.txt LICENSE.txt
+%{!?_licensedir:%global license %%doc}
+%license LICENSE.txt
+%doc README.txt
 %config(noreplace) %attr(644,root,root) %{php_inidir}/%{ininame}
 %{php_extdir}/ioncube_loader_lin_%{php_basever}.so
 %if %{with_zts}
@@ -80,6 +82,7 @@ EOF
 * Tue Mar 01 2016 Carl George <carl.george@rackspace.com> - 5.1.1-2.ius
 - Move zts module to %%php_ztsextdir
 - Move zts configuration to %%php_ztsinidir
+- Use %%license when possible
 
 * Mon Feb 08 2016 Ben Harper <ben.harper@rackspace.com> - 5.1.1-1.ius
 - Latest upstream
