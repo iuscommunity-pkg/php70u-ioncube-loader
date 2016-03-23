@@ -23,6 +23,12 @@ Requires:   %{php_base}(zend-abi) = %{php_zend_api}
 Conflicts:  php-ioncube-loader < %{version}
 Provides:   php-ioncube-loader = %{version}-%{release}
 
+# RPM 4.8
+%{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
+%{?filter_setup}
+# RPM 4.9
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
+
 
 %description
 IonCube Loader provides PHP Modules to read IonCube Encoded Files
@@ -84,6 +90,7 @@ EOF
 * Wed Mar 23 2016 Carl George <carl.george@rackspace.com> - 5.1.2-1.ius
 - Latest upstream
 - Add ExclusiveArch tag
+- Filter provides
 
 * Tue Mar 01 2016 Carl George <carl.george@rackspace.com> - 5.1.1-2.ius
 - Move zts module to %%php_ztsextdir
