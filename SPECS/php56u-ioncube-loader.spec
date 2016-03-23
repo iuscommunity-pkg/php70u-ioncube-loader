@@ -12,6 +12,7 @@ Release:    1.ius%{?dist}
 License:    Redistributable, no modification permitted
 URL:        http://www.ioncube.com
 Group:      Development/Languages
+ExclusiveArch: %{ix86} x86_64
 # the files in the source are pre-complied for 32bit and 64bit
 # we must include both sources so the resulting srpm can build for either arch
 Source0:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86_%{version}.tar.gz
@@ -82,6 +83,7 @@ EOF
 %changelog
 * Wed Mar 23 2016 Carl George <carl.george@rackspace.com> - 5.1.2-1.ius
 - Latest upstream
+- Add ExclusiveArch tag
 
 * Tue Mar 01 2016 Carl George <carl.george@rackspace.com> - 5.1.1-2.ius
 - Move zts module to %%php_ztsextdir
