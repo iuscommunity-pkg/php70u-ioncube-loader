@@ -7,15 +7,15 @@
 
 Name:       %{php_base}-ioncube-loader
 Summary:    IonCube Loader provides PHP Modules to read IonCube Encoded Files
-Version:    5.1.1
-Release:    2.ius%{?dist}
+Version:    5.1.2
+Release:    1.ius%{?dist}
 License:    Redistributable, no modification permitted
 URL:        http://www.ioncube.com
 Group:      Development/Languages
 # the files in the source are pre-complied for 32bit and 64bit
 # we must include both sources so the resulting srpm can build for either arch
-Source0:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86.tar.gz
-Source1:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+Source0:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86_%{version}.tar.gz
+Source1:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64_%{version}.tar.gz
 BuildRequires: %{php_base}-devel
 Requires:   %{php_base}(api) = %{php_core_api}
 Requires:   %{php_base}(zend-abi) = %{php_zend_api}
@@ -80,6 +80,9 @@ EOF
 
 
 %changelog
+* Wed Mar 23 2016 Carl George <carl.george@rackspace.com> - 5.1.2-1.ius
+- Latest upstream
+
 * Tue Mar 01 2016 Carl George <carl.george@rackspace.com> - 5.1.1-2.ius
 - Move zts module to %%php_ztsextdir
 - Move zts configuration to %%php_ztsinidir
