@@ -58,6 +58,20 @@ install -D -p -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 
+%check
+%{__php} \
+    --no-php-ini \
+    --define zend_extension=%{buildroot}%{php_extdir}/%{ext_name}.so \
+    --modules | grep ionCube
+
+%if %{with zts}
+%{__ztsphp} \
+    --no-php-ini \
+    --define zend_extension=%{buildroot}%{php_ztsextdir}/%{ext_name}.so \
+    --modules | grep ionCube
+%endif
+
+
 %files
 %license LICENSE.txt
 %doc README.txt USER-GUIDE.txt
@@ -72,6 +86,7 @@ install -D -p -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %changelog
 * Wed Jan 17 2018 Carl George <carl@george.computer> - 10.1.1-1.ius
 - Latest upstream
+- Add basic %%check
 
 * Fri Dec 15 2017 Ben Harper <ben.harper@rackspace.com> - 10.1.0-1.ius
 - Latest upstream
