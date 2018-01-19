@@ -1,33 +1,33 @@
-%global php_base php70u
-%global php_basever 7.0
+%global ext_name ioncube_loader
+%global php php70u
+%global phpver 7.0
 
-%global with_zts 0%{?__ztsphp:1}
 # [ionCube Loader] The Loader must appear as the first entry in the php.ini file
-%global ininame 01-ioncube-loader.ini
+%global ini_name 01-ioncube-loader.ini
 
-Name:       %{php_base}-ioncube-loader
+%bcond_without zts
+
+Name:       %{php}-ioncube-loader
 Summary:    IonCube Loader provides PHP Modules to read IonCube Encoded Files
 Version:    10.1.1
 Release:    1.ius%{?dist}
 License:    Redistributable, no modification permitted
-URL:        http://www.ioncube.com
+URL:        https://www.ioncube.com
 Group:      Development/Languages
 ExclusiveArch: %{ix86} x86_64
 # the files in the source are pre-complied for 32bit and 64bit
 # we must include both sources so the resulting srpm can build for either arch
 Source0:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86_%{version}.tar.gz
 Source1:    http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64_%{version}.tar.gz
-BuildRequires: %{php_base}-devel
-Requires:   %{php_base}(api) = %{php_core_api}
-Requires:   %{php_base}(zend-abi) = %{php_zend_api}
+BuildRequires: %{php}-devel
+Requires:   php(zend-abi) = %{php_zend_api}
+Requires:   php(api) = %{php_core_api}
 Conflicts:  php-ioncube-loader < %{version}
 Provides:   php-ioncube-loader = %{version}-%{release}
 
-# RPM 4.8
 %{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
+%{?filter_provides_in: %filter_provides_in %{php_ztsextdir}/.*\.so$}
 %{?filter_setup}
-# RPM 4.9
-%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 
 
 %description
@@ -42,47 +42,30 @@ IonCube Loader provides PHP Modules to read IonCube Encoded Files
 %setup -q -T -b 1 -n ioncube
 %endif
 
-
-%build
-# Nothing to do here
+cat > %{ini_name} << EOF
+; Enable ionCube extension
+zend_extension=%{ext_name}.so
+EOF
 
 
 %install
-%{__mkdir_p} %{buildroot}%{php_extdir} \
-             %{buildroot}%{php_inidir}
-%if %{with_zts}
-%{__mkdir_p} %{buildroot}%{php_ztsextdir} \
-             %{buildroot}%{php_ztsinidir}
-%endif
+install -D -p -m 755 %{ext_name}_lin_%{phpver}.so %{buildroot}%{php_extdir}/%{ext_name}.so
+install -D -p -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-# Install the shared objects
-install -m 755 ioncube_loader_lin_%{php_basever}.so %{buildroot}%{php_extdir}
-%if %{with_zts}
-install -m 755 ioncube_loader_lin_%{php_basever}_ts.so %{buildroot}%{php_ztsextdir}
-%endif
-
-%{__cat} >> %{buildroot}%{php_inidir}/%{ininame} <<EOF
-; Configured for PHP ${php_basever}
-zend_extension=%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
-EOF
-
-%if %{with_zts}
-cat >> %{buildroot}%{php_ztsinidir}/%{ininame} << EOF
-; Configured for threaded PHP ${php_basever}
-zend_extension=%{php_ztsextdir}/ioncube_loader_lin_%{php_basever}_ts.so
-EOF
+%if %{with zts}
+install -D -p -m 755 %{ext_name}_lin_%{phpver}_ts.so %{buildroot}%{php_ztsextdir}/%{ext_name}.so
+install -D -p -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE.txt
 %doc README.txt USER-GUIDE.txt
-%config(noreplace) %attr(644,root,root) %{php_inidir}/%{ininame}
-%{php_extdir}/ioncube_loader_lin_%{php_basever}.so
-%if %{with_zts}
-%config(noreplace) %attr(644,root,root) %{php_ztsinidir}/%{ininame}
-%{php_ztsextdir}/ioncube_loader_lin_%{php_basever}_ts.so
+%config(noreplace) %{php_inidir}/%{ini_name}
+%{php_extdir}/%{ext_name}.so
+%if %{with zts}
+%config(noreplace) %{php_ztsinidir}/%{ini_name}
+%{php_ztsextdir}/%{ext_name}.so
 %endif
 
 
