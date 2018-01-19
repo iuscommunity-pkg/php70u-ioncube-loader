@@ -1,6 +1,7 @@
 %global ext_name ioncube_loader
 %global php php70u
 %global phpver 7.0
+%global debug_package %{nil}
 
 # [ionCube Loader] The Loader must appear as the first entry in the php.ini file
 %global ini_name 01-ioncube-loader.ini
@@ -87,6 +88,7 @@ install -D -p -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 * Wed Jan 17 2018 Carl George <carl@george.computer> - 10.1.1-1.ius
 - Latest upstream
 - Add basic %%check
+- Disable debuginfo package
 
 * Fri Dec 15 2017 Ben Harper <ben.harper@rackspace.com> - 10.1.0-1.ius
 - Latest upstream
